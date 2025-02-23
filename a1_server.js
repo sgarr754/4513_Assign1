@@ -9,7 +9,7 @@ const genresRoutes = require('./routes/genres');
 const countsRoutes = require('./routes/counts');
 
 const app = express();
-const port = 8080; //defining the post where the server will listen
+const port = process.env.PORT || 8080; //defining the post where the server will listen
 
 //middle ware to parse JSON request
 app.use(express.json()); 
