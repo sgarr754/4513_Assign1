@@ -1,0 +1,25 @@
+{
+  "name": "a1",
+  "version": "1.0.0",
+  "description": "This is for Assignment 1 of COMP 4513",
+  "main": "route-tester.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgarr754/4513_Assign1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgarr754/4513_Assign1/issues"
+  },
+  "homepage": "https://github.com/sgarr754/4513_Assign1#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7"
+  }
+}
