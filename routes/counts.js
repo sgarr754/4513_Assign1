@@ -50,8 +50,7 @@ router.get('/artists', async (req, res) => {
     .from('artists')
     .select(`
         firstName, lastName,
-        paintings!inner(artistId)`)
-    .order('artistId', { referencedTable: 'paintings', ascending: true });
+        paintings!inner(artistId)`);
     
     //Error handling and message display
     if (error) {
@@ -66,6 +65,10 @@ router.get('/artists', async (req, res) => {
         artistName: `${artist.firstName} ${artist.lastName}`,
         paintingCount: artist.paintings.length
     }));
+
+    //this will take the formatted data and sort them from highest to lowest
+    formattedData.sort((a, b) => b.paintingCount - a.paintingCount);
+
     res.json(formattedData);
     } catch (err) {
         errHandle(res,err);
