@@ -2,8 +2,9 @@
   "name": "a1",
   "version": "1.0.0",
   "description": "This is for Assignment 1 of COMP 4513",
-  "main": "route-tester.js",
+  "main": "a1_server.js",
   "scripts": {
+    "start": "node a1_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
