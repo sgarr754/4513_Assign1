@@ -1,4 +1,6 @@
 // This will handle the routes that will display genres and painting genres
+
+//Required modules
 const express = require('express');
 const supabase = require('../config/supabase');
 const errHandle = require('../util/error_handling');

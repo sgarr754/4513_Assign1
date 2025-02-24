@@ -1,4 +1,6 @@
-//// This will handle the routes that will display eras
+// This will handle the routes that will display eras
+
+//Required modules
 const express = require('express');
 const supabase = require('../config/supabase');
 const errHandle = require('../util/error_handling');

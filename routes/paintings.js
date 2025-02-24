@@ -1,4 +1,6 @@
 // This will handle the routes that will display paintings
+
+//Required modules
 const express = require('express');
 const supabase = require('../config/supabase');
 const errHandle = require('../util/error_handling');
@@ -36,7 +38,7 @@ router.get('/', async (req, res) => {
 router.get('/sort/:sortBy(title|year)', async (req, res) => {
     try{
         const {sortBy} = req.params; //created sortBy parameter with title or year and then use ternary operator for if statement
-        const sort = sortBy === 'title' ? 'title' : 'yearOfWork'
+        const sort = sortBy === 'title' ? 'title' : 'yearOfWork' //sort the data by title by default, else sort by year painting was created 
         const {data, error} = await supabase
         .from('paintings')
         .select(`
@@ -250,7 +252,6 @@ router.get('/genre/:ref', async (req, res) => {
         .select(`
             paintings!inner(paintingId, title, yearOfWork)`)
         .eq('genreId', req.params.ref);
-        // .order('yearOfWork', { referencedTable: 'paintings', ascending: true });
 
         //the data will be grabbed first and then using .sort, it will sort the data from lowest to highest
         data.sort((a, b) => a.paintings.yearOfWork - b.paintings.yearOfWork);

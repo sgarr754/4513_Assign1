@@ -1,4 +1,5 @@
 // This will handle the routes that will display artists
+//Required modules
 const express = require('express');
 const supabase = require('../config/supabase');
 const errHandle = require('../util/error_handling');
@@ -21,7 +22,7 @@ router.get('/genres', async (req, res) => {
         return res.status(404).json({ message: 'No genres found' });
     }
 
-    //If there a genreName comes up and there is no count initialized, it will initialize it
+    //If genreName comes up and there is no count initialized for it, it will initialize it and begin a count
     //Once initialized it will add 1 and count how many times the genreName comes up.
     const genreCount = data.reduce((acc, elem) =>{
         const genreName = elem.genres.genreName;
@@ -32,7 +33,9 @@ router.get('/genres', async (req, res) => {
         return acc;
     }, {});
 
-    //using Object.entries will convert this into an array and will sort it from fewest to most
+    //using Object.entries will return this array
+    // .map will call the arrays from the Object.entries and transform it into objects
+    //.sort will sort it from lowest to highest
     const formattedData = Object.entries(genreCount)
         .map(([genreName, paintCount]) =>({ genreName, paintCount }))
         .sort((a, b) => a.paintCount - b.paintCount);
@@ -110,8 +113,10 @@ router.get('/topgenres/:ref', async (req, res) => {
             return acc;
         }, {});
 
-        //using Object.entries will convert this into an array and will sort it from most to fewest
-        //the .filter will filter our the paintCount if it is less than the ref in the endpoint
+        //using Object.entries will return this array
+        // .map will call the arrays from the Object.entries and transform it into objects
+        //.filter will filter our the paintCount if it is less than the ref in the endpoint
+        //.sort will sort it from lowest to highest
         const formattedData = Object.entries(genreCount)
             .map(([genreName, paintCount]) =>({ genreName, paintCount }))
             .filter(({paintCount}) => paintCount > minPainting)
