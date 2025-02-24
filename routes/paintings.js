@@ -104,7 +104,7 @@ router.get('/search/:substring', async (req, res) => {
             imageFileName, title,
             shapeId, museumLink, accessionNumber, copyrightText, description, excerpt, yearOfWork, width, height, medium, cost, MSRP, googleLink,
             googleDescription, wikiLink, jsonAnnotations`)
-        .like('title', `%${substring}%`)
+        .ilike('title', `%${substring}%`)
         .order('title', { ascending: true });
 
         //Error handling and message display if there is no data or data with that painting title
@@ -213,7 +213,7 @@ router.get('/artist/:ref', async (req, res) => {
 }); 
 
 // Returns all the paintings by artists whose nationality begins with the provided substring
-router.get('/artists/country/:ref', async (req, res) => {
+router.get('/artist/country/:ref', async (req, res) => {
     try{
         const {ref} = req.params;
         const {data, error} = await supabase
@@ -249,8 +249,11 @@ router.get('/genre/:ref', async (req, res) => {
         .from('paintinggenres')
         .select(`
             paintings!inner(paintingId, title, yearOfWork)`)
-        .eq('genreId', req.params.ref)
-        .order('yearOfWork', { referencedTable: 'paintings', ascending: true });
+        .eq('genreId', req.params.ref);
+        // .order('yearOfWork', { referencedTable: 'paintings', ascending: true });
+
+        //the data will be grabbed first and then using .sort, it will sort the data from lowest to highest
+        data.sort((a, b) => a.paintings.yearOfWork - b.paintings.yearOfWork);
 
         //Error handling and message display if there is no data or data with that genre ID
         if (error) {

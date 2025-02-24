@@ -110,12 +110,12 @@ router.get('/topgenres/:ref', async (req, res) => {
             return acc;
         }, {});
 
-        //using Object.entries will convert this into an array and will sort it from fewest to most
+        //using Object.entries will convert this into an array and will sort it from most to fewest
         //the .filter will filter our the paintCount if it is less than the ref in the endpoint
         const formattedData = Object.entries(genreCount)
             .map(([genreName, paintCount]) =>({ genreName, paintCount }))
             .filter(({paintCount}) => paintCount > minPainting)
-            .sort((a, b) => a.paintCount - b.paintCount);
+            .sort((a, b) => b.paintCount - a.paintCount);
 
         //This is an error message if there is no paintings that meet the minimum paintCount
         if(formattedData.length === 0){
